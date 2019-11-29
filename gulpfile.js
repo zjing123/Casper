@@ -17,6 +17,10 @@ const cssnano = require('cssnano');
 const customProperties = require('postcss-custom-properties');
 const easyimport = require('postcss-easy-import');
 
+// release imports
+const path = require('path');
+const releaseUtils = require('@tryghost/release-utils');
+
 function serve(done) {
     livereload.listen();
     done();
@@ -30,6 +34,13 @@ const handleError = (done) => {
         return done(err);
     };
 };
+
+function getFolders(dir) {
+    return fs.readdirSync(dir)
+        .filter(function(file) {
+            return fs.statSync(path.join(dir, file)).isDirectory();
+        });
+}
 
 function hbs(done) {
     pump([
@@ -47,6 +58,20 @@ function css(done) {
         cssnano()
     ];
 
+    const cssPath = "assets/css";
+    var folders = getFolders("assets/css");
+    if (folders.length > 0) {
+        folders.map(function(folder) {
+            pump([
+                src(path.join(cssPath, folder, '/**/*.css'), {sourcemaps: true}),
+                concat(folder + '.css'),
+                postcss(processors),
+                dest('assets/built', {sourcemaps: '.'}),
+                livereload()
+            ], handleError(done));
+        });
+    }
+
     pump([
         src('assets/css/*.css', {sourcemaps: true}),
         postcss(processors),
@@ -60,7 +85,8 @@ function js(done) {
         src([
             // pull in lib files first so our own code can depend on it
             'assets/js/lib/*.js',
-            'assets/js/*.js'
+            'assets/js/*.js',
+            'assets/js/**/*.js'
         ], {sourcemaps: true}),
         concat('casper.js'),
         uglify(),
@@ -95,9 +121,7 @@ exports.build = build;
 exports.zip = series(build, zipper);
 exports.default = dev;
 
-// release imports
-const path = require('path');
-const releaseUtils = require('@tryghost/release-utils');
+// release
 
 let config;
 try {
