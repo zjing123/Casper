@@ -118,6 +118,15 @@
                 $('.subscribe-overlay form').removeClass();
                 $('.subscribe-email').val('');
             });
+
+            // add animate.css
+            $('article.animated-os').on('mouseover', function () {
+                $(this).addClass('animated pulse fast');
+            });
+
+            $('article.animated-os').on('mouseout', function () {
+                $(this).removeClass('animated pulse fast');
+            });
         });
     </script>
 
