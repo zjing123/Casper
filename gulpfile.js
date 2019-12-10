@@ -1,4 +1,5 @@
 const {series, watch, src, dest, parallel} = require('gulp');
+const less = require('gulp-less')
 const pump = require('pump');
 
 // gulp plugins and utils
@@ -80,6 +81,17 @@ function css(done) {
     ], handleError(done));
 }
 
+function lass(done) {
+    pump([
+        src([
+            'assets/css/*.less'
+        ], {sourcemaps: true}),
+        less(),
+        dest('assets/built', {sourcemaps: '.'}),
+        livereload()
+    ], handleError(done));
+}
+
 function js(done) {
     pump([
         src([
@@ -111,10 +123,10 @@ function zipper(done) {
     ], handleError(done));
 }
 
-const cssWatcher = () => watch('assets/css/**', css);
+const cssWatcher = () => watch('assets/css/**', series(css, lass));
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const watcher = parallel(cssWatcher, hbsWatcher);
-const build = series(css, js);
+const build = series(css, lass, js);
 const dev = series(build, serve, watcher);
 
 exports.build = build;

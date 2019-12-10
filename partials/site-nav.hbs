@@ -15,6 +15,7 @@
         </div>
     </div>
     <div class="site-nav-right">
+        {{> "search/searchTrigger"}}
         <div class="social-links">
             {{#if @site.facebook}}
                 <a class="social-link social-link-fb" href="{{facebook_url @site.facebook}}" title="Facebook" target="_blank" rel="noopener">{{> "icons/facebook"}}</a>

@@ -1,0 +1,9 @@
+<ul class="nav cd-main-nav" role="menu">
+    <!-- Loop through the navigation items -->
+    {{#foreach navigation}}
+        <li class="nav-{{slug}}{{#if current}} nav-current{{/if}}" role="menuitem">
+            <a href="{{url absolute="true"}}">{{label}}</a>
+        </li>
+    {{/foreach}}
+    <!-- End the loop -->
+</ul>

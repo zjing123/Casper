@@ -74,7 +74,7 @@ body {
 /* Centered content container blocks */
 .inner {
     margin: 0 auto;
-    max-width: 1040px;
+    max-width: 1440px;
     width: 100%;
 }
 
@@ -364,6 +364,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 .site-nav-content {
     position: relative;
     align-self: flex-start;
+    width: 100%;
 }
 
 .nav {

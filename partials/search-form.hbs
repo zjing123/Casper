@@ -1,0 +1,43 @@
+<div id="search" class="cd-main-search">
+    <form>
+        <input type="search" placeholder="Search...">
+    </form>
+    <div class="cd-search-suggestions">
+        <div class="news">
+            <h3>News</h3>
+            <ul>
+                <li>
+                    <a class="image-wrapper" href="#0"><img src="{{asset "img/placeholder.png"}}" alt="News image"></a>
+                    <h4><a class="cd-nowrap" href="#0">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</a>
+                    </h4>
+                    <time datetime="2016-01-12">Feb 03, 2016</time>
+                </li>
+                <li>
+                    <a class="image-wrapper" href="#0"><img src="{{asset "img/placeholder.png"}}" alt="News image"></a>
+                    <h4><a class="cd-nowrap" href="#0">Incidunt voluptatem adipisci voluptates fugit beatae culpa eum,
+                        distinctio, assumenda est ad</a></h4>
+                    <time datetime="2016-01-12">Jan 28, 2016</time>
+                </li>
+                <li>
+                    <a class="image-wrapper" href="#0"><img src="{{asset "img/placeholder.png"}}" alt="News image"></a>
+                    <h4><a class="cd-nowrap" href="#0">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto,
+                        esse.</a></h4>
+                    <time datetime="2016-01-12">Jan 12, 2016</time>
+                </li>
+            </ul>
+        </div>
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            {{#if @site.navigation}}
+                {{navigation}}
+            {{/if}}
+        </div>
+    </div>
+    <a href="#0" class="close cd-text-replace">Close Form</a>
+</div>
+<div class="cd-main-nav-wrapper">
+    {{#if @site.navigation}}
+        {{navigation}}
+    {{/if}}
+</div>
+<div class="cd-cover-layer"></div>
